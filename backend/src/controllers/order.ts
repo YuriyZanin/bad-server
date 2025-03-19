@@ -35,11 +35,10 @@ export const getOrders = async (
         const filters: FilterQuery<Partial<IOrder>> = {}
 
         if (status) {
-            if (typeof status === 'object') {
-                Object.assign(filters, status)
-            }
-            if (typeof status === 'string') {
+            if (typeof status === 'string' && /^[a-zA-Z]+$/.test(status)) {
                 filters.status = status
+            } else {
+                throw new BadRequestError('Статус указан некорректно')
             }
         }
 
