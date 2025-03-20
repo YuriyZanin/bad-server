@@ -298,10 +298,6 @@ export const createOrder = async (
         const { address, payment, phone, total, email, items, comment } =
             req.body
 
-        if (phone && !validator.isMobilePhone(phone)) {
-            throw new BadRequestError('Некорректный номер телефона')
-        }
-
         items.forEach((id: Types.ObjectId) => {
             const product = products.find((p) => p._id.equals(id))
             if (!product) {
