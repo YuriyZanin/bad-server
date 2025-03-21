@@ -22,3 +22,7 @@ export const REFRESH_TOKEN = {
         } as CookieOptions,
     },
 }
+export const FILE_CONFIG = {
+    maxSize: Number(process.env.MAX_FILE_SIZE) || 10485760,
+    minSize: Number(process.env.MIN_FILE_SIZE) || 2048,
+}
