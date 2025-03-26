@@ -9,9 +9,19 @@ import { DB_ADDRESS, ORIGIN_ALLOW } from './config'
 import errorHandler from './middlewares/error-handler'
 import serveStatic from './middlewares/serverStatic'
 import routes from './routes'
+import { rateLimit } from 'express-rate-limit'
 
 const { PORT = 3000 } = process.env
 const app = express()
+
+const limiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    limit: 50,
+    standardHeaders: true,
+    legacyHeaders: false,
+})
+
+app.use(limiter)
 
 app.use(cookieParser())
 
