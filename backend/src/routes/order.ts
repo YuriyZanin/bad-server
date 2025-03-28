@@ -11,6 +11,7 @@ import {
 import auth, { roleGuardMiddleware } from '../middlewares/auth'
 import { validateOrderBody } from '../middlewares/validations'
 import { Role } from '../models/user'
+import { csrfProtection } from '../middlewares/csrfProtection'
 
 const orderRouter = Router()
 
@@ -26,6 +27,7 @@ orderRouter.get(
 orderRouter.get('/me/:orderNumber', auth, getOrderCurrentUserByNumber)
 orderRouter.patch(
     '/:orderNumber',
+    csrfProtection,
     auth,
     roleGuardMiddleware(Role.Admin),
     updateOrder

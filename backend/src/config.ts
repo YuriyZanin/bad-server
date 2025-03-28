@@ -1,3 +1,4 @@
+import { DoubleCsrfConfigOptions } from 'csrf-csrf'
 import { CookieOptions } from 'express'
 import ms from 'ms'
 
@@ -23,6 +24,17 @@ export const REFRESH_TOKEN = {
         } as CookieOptions,
     },
 }
+
+export const doubleCsrfOptions: DoubleCsrfConfigOptions = {
+    getSecret: () => process.env.CSRF_SECRET || 'csrfSecret',
+    cookieName: process.env.CSRF_COOKIE_NAME || 'host-csrf-Token',
+    cookieOptions: {
+        sameSite: 'strict',
+        path: '/',
+        secure: true,
+    },
+}
+
 export const FILE_CONFIG = {
     maxSize: Number(process.env.MAX_FILE_SIZE) || 10485760,
     minSize: Number(process.env.MIN_FILE_SIZE) || 2048,
