@@ -22,6 +22,7 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
             refreshToken,
             REFRESH_TOKEN.cookie.options
         )
+        res.cookie('csrfToken', crypto.randomBytes(32).toString('hex'))
         return res.json({
             success: true,
             user,
@@ -46,6 +47,7 @@ const register = async (req: Request, res: Response, next: NextFunction) => {
             refreshToken,
             REFRESH_TOKEN.cookie.options
         )
+        res.cookie('csrfToken', crypto.randomBytes(32).toString('hex'))
         return res.status(constants.HTTP_STATUS_CREATED).json({
             success: true,
             user: newUser,
